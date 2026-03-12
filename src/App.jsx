@@ -480,7 +480,7 @@ export default function MNDualEnrollmentDashboard() {
           <div>
             <div style={{ display: "flex", gap: 8, marginBottom: 6 }}>
               <span style={{ background: "#1E4A8C", borderRadius: 5, padding: "3px 9px", fontSize: 9, fontWeight: 700, letterSpacing: "0.1em", color: "#BFDBFE", textTransform: "uppercase" }}>Minnesota P-20 Initiative</span>
-              <span style={{ background: "#F39C1218", border: "1px solid #F39C1240", borderRadius: 5, padding: "3px 9px", fontSize: 9, fontWeight: 700, color: "#FCD34D" }}>◉ DRAFT — Stakeholder Discussion</span>
+              <span style={{ background: "#F39C1218", border: "1px solid #F39C1240", borderRadius: 5, padding: "3px 9px", fontSize: 9, fontWeight: 700, color: "#FCD34D" }}>◉ Prototype — Stakeholder Discussion</span>
             </div>
             <h1 style={{ fontSize: 24, fontWeight: 400, color: C.header, margin: "0 0 3px", letterSpacing: "-0.02em" }}>
               Dual Enrollment Equity & Intelligence Dashboard
