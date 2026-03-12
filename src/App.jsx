@@ -8,12 +8,12 @@ import {
 
 // ─── COLOR SYSTEM ────────────────────────────────────────────────────────────
 const C = {
-  bg: "#0F1B2E", card: "#1A2942", cardBorder: "#2D3F5F",
-  blue: "#60A5FA", teal: "#22D3EE", green: "#34D399",
-  purple: "#A78BFA", amber: "#FCD34D", red: "#F87171",
-  orange: "#FB923C", pink: "#F472B6", lime: "#A3E635",
-  text: "#E2E8F0", muted: "#94A3B8", faint: "#2D3F5F",
-  header: "#F1F5F9", accent: "#60A5FA",
+  bg: "#F8FAFC", card: "#FFFFFF", cardBorder: "#E5E7EB",
+  blue: "#3B82F6", teal: "#14B8A6", green: "#10B981",
+  purple: "#8B5CF6", amber: "#F59E0B", red: "#EF4444",
+  orange: "#F97316", pink: "#EC4899", lime: "#84CC16",
+  text: "#1E293B", muted: "#64748B", faint: "#E5E7EB",
+  header: "#0F172A", accent: "#3B82F6",
 };
 
 // ─── DATA ─────────────────────────────────────────────────────────────────────
@@ -192,15 +192,17 @@ const modelQualityData = [
 // ─── SHARED COMPONENTS ────────────────────────────────────────────────────────
 const Card = ({ children, style = {} }) => (
   <div style={{
-    background: `linear-gradient(145deg, ${C.card}, #111F33)`,
+    background: C.card,
     border: `1px solid ${C.cardBorder}`, borderRadius: 12,
-    padding: "20px 24px", ...style
+    padding: "20px 24px",
+    boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)",
+    ...style
   }}>{children}</div>
 );
 
 const CardTitle = ({ children, color = C.accent }) => (
   <h3 style={{
-    fontSize: 14, color, margin: "0 0 12px",
+    fontSize: 16, color, margin: "0 0 12px",
     letterSpacing: "-0.01em", fontWeight: 600,
     fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
     lineHeight: 1.4
@@ -211,19 +213,19 @@ const StatCard = ({ label, value, sub, color = C.blue, style = {} }) => (
   <div style={{
     background: `${color}15`,
     border: `1px solid ${color}40`, borderLeft: `3px solid ${color}`,
-    borderRadius: 10, padding: "14px 18px", ...style
+    borderRadius: 10, padding: "16px 20px", ...style
   }}>
-    <div style={{ fontSize: 10, color: C.muted, textTransform: "uppercase", letterSpacing: "0.07em", marginBottom: 4 }}>{label}</div>
-    <div style={{ fontSize: 24, fontWeight: 700, color: C.header, lineHeight: 1.1 }}>{value}</div>
-    {sub && <div style={{ fontSize: 10, color: C.muted, marginTop: 4 }}>{sub}</div>}
+    <div style={{ fontSize: 11, color: C.muted, textTransform: "uppercase", letterSpacing: "0.07em", marginBottom: 5 }}>{label}</div>
+    <div style={{ fontSize: 28, fontWeight: 700, color: C.header, lineHeight: 1.1 }}>{value}</div>
+    {sub && <div style={{ fontSize: 14, color: C.muted, marginTop: 5 }}>{sub}</div>}
   </div>
 );
 
 const InsightBox = ({ children, color = C.blue }) => (
   <div style={{
-    padding: "12px 16px", background: `${color}20`,
+    padding: "14px 18px", background: `${color}20`,
     border: `1px solid ${color}60`, borderRadius: 8,
-    fontSize: 12, color: C.text, lineHeight: 1.6, marginTop: 14
+    fontSize: 14, color: C.text, lineHeight: 1.6, marginTop: 14
   }}>{children}</div>
 );
 
@@ -231,8 +233,9 @@ const Tt = ({ active, payload, label }) => {
   if (!active || !payload?.length) return null;
   return (
     <div style={{
-      background: "#0D1B2A", border: `1px solid ${C.cardBorder}`,
-      borderRadius: 8, padding: "10px 14px", fontSize: 11, color: C.text
+      background: C.card, border: `1px solid ${C.cardBorder}`,
+      borderRadius: 8, padding: "12px 16px", fontSize: 13, color: C.text,
+      boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)"
     }}>
       <p style={{ color: C.accent, fontWeight: 700, margin: "0 0 4px" }}>{label}</p>
       {payload.map((p, i) => (
@@ -325,11 +328,11 @@ function MNCountyMap() {
         return (
         <div style={{
           position: "fixed", left: mouse.x + 14, top: mouse.y - 14,
-          background: "#0A1628", border: `1px solid ${getGapColor(gap)}55`,
+          background: C.card, border: `1px solid ${C.cardBorder}`,
           borderLeft: `3px solid ${getGapColor(gap)}`,
           borderRadius: 8, padding: "10px 14px", fontSize: 11,
           pointerEvents: "none", zIndex: 9999, minWidth: 195,
-          boxShadow: "0 6px 24px rgba(0,0,0,0.7)"
+          boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"
         }}>
           <div style={{ color: "#60A5FA", fontWeight: 700, marginBottom: 5, fontSize: 12 }}>
             {hovered.name} County
@@ -346,7 +349,7 @@ function MNCountyMap() {
           <div style={{ color: "#64748B", fontSize: 10, marginBottom: 8, fontStyle: "italic" }}>
             Based on county demographic composition + OHE statewide rates
           </div>
-          <div style={{ height: 5, background: "#1E3A5F", borderRadius: 3 }}>
+          <div style={{ height: 5, background: C.faint, borderRadius: 3 }}>
             <div style={{ width: `${Math.min(100, Math.max(0, (1 - gap/40)*100))}%`, height: "100%",
               background: getGapColor(gap), borderRadius: 3 }} />
           </div>
@@ -401,11 +404,11 @@ function MNCountyDEMap() {
         <div style={{
           position: "absolute", left: "50%", top: -10,
           transform: "translate(-50%, -100%)",
-          background: "#0A1628", border: `1px solid ${getDEColor(hovered.deRate)}55`,
+          background: C.card, border: `1px solid ${C.cardBorder}`,
           borderLeft: `3px solid ${getDEColor(hovered.deRate)}`,
           borderRadius: 8, padding: "10px 14px", fontSize: 11,
           pointerEvents: "none", zIndex: 9999, minWidth: 210,
-          boxShadow: "0 6px 24px rgba(0,0,0,0.7)"
+          boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"
         }}>
           <div style={{ color: "#60A5FA", fontWeight: 700, marginBottom: 5, fontSize: 12 }}>
             {hovered.name} County
@@ -422,7 +425,7 @@ function MNCountyDEMap() {
           <div style={{ color: "#94A3B8", marginBottom: 8 }}>
             DE Students: <span style={{ color: "#F1F5F9", fontWeight: 600 }}>{hovered.deStudents.toLocaleString()}</span>
           </div>
-          <div style={{ height: 6, background: "#1E3A5F", borderRadius: 3 }}>
+          <div style={{ height: 6, background: C.faint, borderRadius: 3 }}>
             <div style={{ width: `${(hovered.deRate / 40) * 100}%`, height: "100%",
               background: getDEColor(hovered.deRate), borderRadius: 3 }} />
           </div>
@@ -458,8 +461,8 @@ export default function MNDualEnrollmentDashboard() {
   const [activeTab, setActiveTab] = useState("equity");
 
   const tabStyle = (id) => ({
-    padding: "7px 13px", borderRadius: "6px 6px 0 0",
-    border: "none", cursor: "pointer", fontSize: 11,
+    padding: "9px 15px", borderRadius: "6px 6px 0 0",
+    border: "none", cursor: "pointer", fontSize: 13,
     fontWeight: 600, letterSpacing: "0.04em",
     fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif", transition: "all 0.15s",
     background: activeTab === id ? "#1E4A8C" : "transparent",
@@ -473,19 +476,20 @@ export default function MNDualEnrollmentDashboard() {
 
       {/* HEADER */}
       <div style={{
-        background: "linear-gradient(135deg, #0A1628 0%, #0D2144 60%, #091830 100%)",
-        borderBottom: `2px solid #1E4A8C`, padding: "24px 24px 18px"
+        background: C.card,
+        borderBottom: `2px solid ${C.cardBorder}`, padding: "24px 24px 18px",
+        boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1)"
       }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", maxWidth: "100%" }}>
           <div>
-            <div style={{ display: "flex", gap: 8, marginBottom: 6 }}>
-              <span style={{ background: "#1E4A8C", borderRadius: 5, padding: "3px 9px", fontSize: 9, fontWeight: 700, letterSpacing: "0.1em", color: "#BFDBFE", textTransform: "uppercase" }}>Minnesota P-20 Initiative</span>
-              <span style={{ background: "#F39C1218", border: "1px solid #F39C1240", borderRadius: 5, padding: "3px 9px", fontSize: 9, fontWeight: 700, color: "#FCD34D" }}>◉ Prototype — Stakeholder Discussion</span>
+            <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>
+              <span style={{ background: `${C.blue}15`, border: `1px solid ${C.blue}40`, borderRadius: 5, padding: "4px 10px", fontSize: 11, fontWeight: 700, letterSpacing: "0.1em", color: C.blue, textTransform: "uppercase" }}>Minnesota P-20 Initiative</span>
+              <span style={{ background: `${C.amber}15`, border: `1px solid ${C.amber}40`, borderRadius: 5, padding: "4px 10px", fontSize: 11, fontWeight: 700, color: C.amber }}>◉ Prototype — Stakeholder Discussion</span>
             </div>
-            <h1 style={{ fontSize: 24, fontWeight: 400, color: C.header, margin: "0 0 3px", letterSpacing: "-0.02em" }}>
+            <h1 style={{ fontSize: 28, fontWeight: 400, color: C.header, margin: "0 0 4px", letterSpacing: "-0.02em" }}>
               Dual Enrollment Equity & Intelligence Dashboard
             </h1>
-            <p style={{ fontSize: 12, color: C.muted, margin: 0 }}>
+            <p style={{ fontSize: 14, color: C.muted, margin: 0 }}>
               Supporting Minnesota's Next Phase of Dual Enrollment Policy · MNP20 National Cohort Initiative · 11 Modules
             </p>
           </div>
@@ -515,7 +519,7 @@ export default function MNDualEnrollmentDashboard() {
       </div>
 
       {/* TAB BAR */}
-      <div style={{ display: "flex", gap: 2, padding: "12px 24px 0", borderBottom: `1px solid ${C.faint}`, background: "#0A1628", overflowX: "auto" }}>
+      <div style={{ display: "flex", gap: 2, padding: "12px 24px 0", borderBottom: `1px solid ${C.cardBorder}`, background: C.card, overflowX: "auto" }}>
         {TABS.map(t => <button key={t.id} style={tabStyle(t.id)} onClick={() => setActiveTab(t.id)}>{t.label}</button>)}
       </div>
 
@@ -525,8 +529,8 @@ export default function MNDualEnrollmentDashboard() {
         {/* ── EQUITY GAPS ── */}
         {activeTab === "equity" && (
           <div>
-            <h2 style={{ fontSize: 17, fontWeight: 400, color: C.header, margin: "0 0 4px" }}>Attainment & Dual Enrollment Participation by Race/Ethnicity</h2>
-            <p style={{ fontSize: 12, color: C.muted, margin: "0 0 18px" }}>Postsecondary attainment rates (ages 25–44) vs. estimated DE participation rates. Source: MNP20 2025 Annual Report / OHE.</p>
+            <h2 style={{ fontSize: 20, fontWeight: 400, color: C.header, margin: "0 0 6px" }}>Attainment & Dual Enrollment Participation by Race/Ethnicity</h2>
+            <p style={{ fontSize: 14, color: C.muted, margin: "0 0 18px" }}>Postsecondary attainment rates (ages 25–44) vs. estimated DE participation rates. Source: MNP20 2025 Annual Report / OHE.</p>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18, marginBottom: 18 }}>
               <Card>
                 <CardTitle>Postsecondary Attainment Rate — 70% State Goal</CardTitle>
@@ -574,8 +578,8 @@ export default function MNDualEnrollmentDashboard() {
         {/* ── PIPELINE ── */}
         {activeTab === "pipeline" && (
           <div>
-            <h2 style={{ fontSize: 17, fontWeight: 400, color: C.header, margin: "0 0 4px" }}>The DE Advantage: HS to Career Success Rates</h2>
-            <p style={{ fontSize: 12, color: C.muted, margin: "0 0 18px" }}>Per 100 high school students: DE participants show 2× higher success at every stage compared to Non-DE students.</p>
+            <h2 style={{ fontSize: 20, fontWeight: 400, color: C.header, margin: "0 0 6px" }}>The DE Advantage: HS to Career Success Rates</h2>
+            <p style={{ fontSize: 14, color: C.muted, margin: "0 0 18px" }}>Per 100 high school students: DE participants show 2× higher success at every stage compared to Non-DE students.</p>
             <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: 18, marginBottom: 18 }}>
               <Card>
                 <CardTitle color={C.green}>Success Rate at Each Stage (out of 100 students)</CardTitle>
@@ -586,8 +590,8 @@ export default function MNDualEnrollmentDashboard() {
                     <YAxis domain={[0, 100]} tick={{ fill: C.muted, fontSize: 10 }} label={{ value: "Students (out of 100)", angle: -90, position: "insideLeft", fill: C.muted, fontSize: 10 }} />
                     <Tooltip content={<Tt />} />
                     <Legend wrapperStyle={{ fontSize: 11, color: C.text, fontWeight: 600 }} />
-                    <Area type="monotone" dataKey="nonDE" name="🔴 Non-DE Students" stroke="#EF4444" fill="#EF4444" fillOpacity={0.2} strokeWidth={2.5} />
-                    <Area type="monotone" dataKey="dualEnroll" name="🟢 DE Participants" stroke="#34D399" fill="#34D399" fillOpacity={0.3} strokeWidth={3} />
+                    <Area type="monotone" dataKey="nonDE" name="🔴 Non-DE Students" stroke="#EF4444" fill="#EF4444" fillOpacity={0.08} strokeWidth={2.5} />
+                    <Area type="monotone" dataKey="dualEnroll" name="🟢 DE Participants" stroke="#34D399" fill="#34D399" fillOpacity={0.08} strokeWidth={3} />
                   </AreaChart>
                 </ResponsiveContainer>
                 <div style={{ marginTop: 10, padding: "8px 12px", background: `${C.green}15`, borderRadius: 6, fontSize: 11, color: C.text }}>
@@ -596,7 +600,7 @@ export default function MNDualEnrollmentDashboard() {
               </Card>
               <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
                 <div style={{ background: C.card, border: `1px solid ${C.cardBorder}`, borderRadius: 8, padding: "12px 14px" }}>
-                  <div style={{ fontSize: 11, color: C.muted, marginBottom: 8, textTransform: "uppercase", letterSpacing: "0.05em" }}>DE Advantage by Stage</div>
+                  <div style={{ fontSize: 13, color: C.muted, marginBottom: 8, textTransform: "uppercase", letterSpacing: "0.05em" }}>DE Advantage by Stage</div>
                   {[
                     { stage: "College", de: 86, non: 69 },
                     { stage: "2-Yr Degree", de: 68, non: 45 },
@@ -605,7 +609,7 @@ export default function MNDualEnrollmentDashboard() {
                   ].map((s, i) => (
                     <div key={i} style={{ marginBottom: i < 3 ? 12 : 0 }}>
                       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 }}>
-                        <span style={{ fontSize: 11, color: C.text, fontWeight: 600 }}>{s.stage}</span>
+                        <span style={{ fontSize: 13, color: C.text, fontWeight: 600 }}>{s.stage}</span>
                         <span style={{ fontSize: 13, fontWeight: 700, color: C.green }}>+{s.de - s.non}pt</span>
                       </div>
                       <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
@@ -636,12 +640,12 @@ export default function MNDualEnrollmentDashboard() {
         {/* ── GEOGRAPHIC ── */}
         {activeTab === "geo" && (
           <div>
-            <h2 style={{ fontSize: 17, fontWeight: 400, color: C.header, margin: "0 0 4px" }}>Geographic Equity: Postsecondary Attainment Gap by County</h2>
-            <p style={{ fontSize: 12, color: C.muted, margin: "0 0 6px" }}>
+            <h2 style={{ fontSize: 20, fontWeight: 400, color: C.header, margin: "0 0 6px" }}>Geographic Equity: Postsecondary Attainment Gap by County</h2>
+            <p style={{ fontSize: 14, color: C.muted, margin: "0 0 6px" }}>
               Statewide attainment is 63.0% (OHE, 2023). Metro areas approach 67%; Greater Minnesota falls to ~58%.
               The map shows estimated attainment gap from the 70% goal by county, derived from OHE's published race/ethnicity rates and county demographic profiles.
             </p>
-            <div style={{ background: `${C.amber}15`, border: `1px solid ${C.amber}40`, borderRadius: 7, padding: "7px 14px", fontSize: 11, color: C.amber, marginBottom: 16 }}>
+            <div style={{ background: "#F1F5F9", border: "1px solid #CBD5E1", borderRadius: 7, padding: "7px 14px", fontSize: 11, color: "#475569", marginBottom: 16 }}>
               ⚠ OHE does not currently publish postsecondary attainment or dual enrollment participation rates at the county or regional level.
               This map illustrates what SLEDS-integrated data could show — and why building that view is a core deliverable of the proposed solution.
             </div>
@@ -722,11 +726,11 @@ export default function MNDualEnrollmentDashboard() {
         {/* ── GEOGRAPHIC DE ── */}
         {activeTab === "geode" && (
           <div>
-            <h2 style={{ fontSize: 17, fontWeight: 400, color: C.header, margin: "0 0 4px" }}>Dual Enrollment Participation by County</h2>
-            <p style={{ fontSize: 12, color: C.muted, margin: "0 0 12px" }}>
+            <h2 style={{ fontSize: 20, fontWeight: 400, color: C.header, margin: "0 0 6px" }}>Dual Enrollment Participation by County</h2>
+            <p style={{ fontSize: 14, color: C.muted, margin: "0 0 12px" }}>
               County-level DE participation rates reveal significant geographic inequities. Rural counties show substantially lower participation, driven by transportation barriers, counselor capacity constraints, and limited college access.
             </p>
-            <div style={{ background: `${C.teal}15`, border: `1px solid ${C.teal}40`, borderRadius: 7, padding: "8px 14px", fontSize: 11, color: C.teal, marginBottom: 16 }}>
+            <div style={{ background: "#F1F5F9", border: "1px solid #CBD5E1", borderRadius: 7, padding: "8px 14px", fontSize: 11, color: "#475569", marginBottom: 16 }}>
               ⚠ MDE does not publish county-level DE participation rates. This simulation demonstrates what SLEDS data integration could reveal.
             </div>
 
@@ -802,8 +806,8 @@ export default function MNDualEnrollmentDashboard() {
         {/* ── ATTAINMENT GOAL ── */}
         {activeTab === "goal" && (
           <div>
-            <h2 style={{ fontSize: 17, fontWeight: 400, color: C.header, margin: "0 0 4px" }}>The Gap to 70%: Can DE Close It?</h2>
-            <p style={{ fontSize: 12, color: C.muted, margin: "0 0 18px" }}>Minnesota climbed from 57.5% to 63.5% in 10 years — but 99,514 more adults need credentials to reach 70%. DE expansion could close 25% of that gap.</p>
+            <h2 style={{ fontSize: 20, fontWeight: 400, color: C.header, margin: "0 0 6px" }}>The Gap to 70%: Can DE Close It?</h2>
+            <p style={{ fontSize: 14, color: C.muted, margin: "0 0 18px" }}>Minnesota climbed from 57.5% to 63.5% in 10 years — but 99,514 more adults need credentials to reach 70%. DE expansion could close 25% of that gap.</p>
             <div style={{ display: "grid", gridTemplateColumns: "1.5fr 1fr", gap: 18, marginBottom: 18 }}>
               <Card>
                 <CardTitle color={C.blue}>Progress Toward 70% Attainment Goal</CardTitle>
@@ -835,18 +839,18 @@ export default function MNDualEnrollmentDashboard() {
 
                 {/* Gap Remaining */}
                 <div style={{ background: `${C.red}15`, border: `2px solid ${C.red}`, borderRadius: 8, padding: "12px 14px" }}>
-                  <div style={{ fontSize: 10, color: C.muted, marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.05em" }}>Gap to Close</div>
+                  <div style={{ fontSize: 12, color: C.muted, marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.05em" }}>Gap to Close</div>
                   <div style={{ fontSize: 28, fontWeight: 700, color: C.red, lineHeight: 1, marginBottom: 4 }}>6.5pts</div>
                   <div style={{ fontSize: 11, color: C.text }}>= 99,514 more adults</div>
-                  <div style={{ fontSize: 10, color: C.muted, marginTop: 4 }}>Need credentials to reach 70%</div>
+                  <div style={{ fontSize: 12, color: C.muted, marginTop: 4 }}>Need credentials to reach 70%</div>
                 </div>
 
                 {/* DE Impact */}
                 <div style={{ background: `${C.green}15`, border: `2px solid ${C.green}`, borderRadius: 8, padding: "12px 14px" }}>
-                  <div style={{ fontSize: 10, color: C.muted, marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.05em" }}>DE Can Contribute</div>
+                  <div style={{ fontSize: 12, color: C.muted, marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.05em" }}>DE Can Contribute</div>
                   <div style={{ fontSize: 28, fontWeight: 700, color: C.green, lineHeight: 1, marginBottom: 4 }}>+1.6pts</div>
                   <div style={{ fontSize: 11, color: C.text }}>By 2029 with DE expansion</div>
-                  <div style={{ fontSize: 10, color: C.muted, marginTop: 4 }}>25% of remaining gap</div>
+                  <div style={{ fontSize: 12, color: C.muted, marginTop: 4 }}>25% of remaining gap</div>
                 </div>
               </div>
             </div>
@@ -874,8 +878,8 @@ export default function MNDualEnrollmentDashboard() {
         {/* ── FIRST GEN EARLY WARNING ── */}
         {activeTab === "firstgen" && (
           <div>
-            <h2 style={{ fontSize: 17, fontWeight: 400, color: C.header, margin: "0 0 4px" }}>Early Warning: How DE Participation Predicts Success</h2>
-            <p style={{ fontSize: 12, color: C.muted, margin: "0 0 18px" }}>
+            <h2 style={{ fontSize: 20, fontWeight: 400, color: C.header, margin: "0 0 6px" }}>Early Warning: How DE Participation Predicts Success</h2>
+            <p style={{ fontSize: 14, color: C.muted, margin: "0 0 18px" }}>
               Dual enrollment isn't just about credits — it's a powerful predictor of postsecondary outcomes. Students who participate show stronger academic performance, better attendance, and higher college completion rates.
             </p>
 
@@ -1136,9 +1140,9 @@ export default function MNDualEnrollmentDashboard() {
         {/* ── INCOME & SAVINGS ── */}
         {activeTab === "income" && (
           <div>
-            <h2 style={{ fontSize: 17, fontWeight: 400, color: C.header, margin: "0 0 4px" }}>Family Income & Net Cost Savings Calculator</h2>
-            <p style={{ fontSize: 12, color: C.muted, margin: "0 0 4px" }}>DE is nominally "no-cost," but hidden costs — transportation, materials, lost family income — disproportionately burden lower-income and rural families. This module models net economic value of DE by income band.</p>
-            <div style={{ background: `${C.amber}15`, border: `1px solid ${C.amber}40`, borderRadius: 7, padding: "8px 14px", fontSize: 11, color: C.amber, marginBottom: 18 }}>
+            <h2 style={{ fontSize: 20, fontWeight: 400, color: C.header, margin: "0 0 6px" }}>Family Income & Net Cost Savings Calculator</h2>
+            <p style={{ fontSize: 14, color: C.muted, margin: "0 0 4px" }}>DE is nominally "no-cost," but hidden costs — transportation, materials, lost family income — disproportionately burden lower-income and rural families. This module models net economic value of DE by income band.</p>
+            <div style={{ background: "#F1F5F9", border: "1px solid #CBD5E1", borderRadius: 7, padding: "8px 14px", fontSize: 11, color: "#475569", marginBottom: 18 }}>
               ⚠ Requires connecting MDE free/reduced lunch data + DE participation records + transportation/cost surveys. Net savings model uses OHE published tuition averages.
             </div>
 
@@ -1168,8 +1172,8 @@ export default function MNDualEnrollmentDashboard() {
                     <YAxis tick={{ fill: C.muted, fontSize: 10 }} tickFormatter={v => `$${(v / 1000).toFixed(0)}K`} />
                     <Tooltip content={<Tt />} />
                     <Legend wrapperStyle={{ fontSize: 10 }} />
-                    <Area type="monotone" dataKey="nonDE" name="Non-DE Earnings" stroke={C.muted} fill={C.muted} fillOpacity={0.15} strokeWidth={1.5} />
-                    <Area type="monotone" dataKey="deStudent" name="DE Student Earnings" stroke={C.green} fill={C.green} fillOpacity={0.25} strokeWidth={2.5} />
+                    <Area type="monotone" dataKey="nonDE" name="Non-DE Earnings" stroke={C.red} fill={C.red} fillOpacity={0.1} strokeWidth={2} />
+                    <Area type="monotone" dataKey="deStudent" name="DE Student Earnings" stroke={C.green} fill={C.green} fillOpacity={0.1} strokeWidth={2.5} />
                   </AreaChart>
                 </ResponsiveContainer>
               </Card>
@@ -1188,9 +1192,9 @@ export default function MNDualEnrollmentDashboard() {
         {/* ── EMPLOYER SIGNALS ── */}
         {activeTab === "employer" && (
           <div>
-            <h2 style={{ fontSize: 17, fontWeight: 400, color: C.header, margin: "0 0 4px" }}>Employer Signals Dashboard</h2>
-            <p style={{ fontSize: 12, color: C.muted, margin: "0 0 4px" }}>Connecting DEED labor market data to DE course completion by pathway. Which DE pathways lead to in-demand regional jobs? Bridges DE policy to Governor Walz's "Drive for Five" workforce priorities.</p>
-            <div style={{ background: `${C.teal}15`, border: `1px solid ${C.teal}40`, borderRadius: 7, padding: "8px 14px", fontSize: 11, color: C.teal, marginBottom: 18 }}>
+            <h2 style={{ fontSize: 20, fontWeight: 400, color: C.header, margin: "0 0 6px" }}>Employer Signals Dashboard</h2>
+            <p style={{ fontSize: 14, color: C.muted, margin: "0 0 4px" }}>Connecting DEED labor market data to DE course completion by pathway. Which DE pathways lead to in-demand regional jobs? Bridges DE policy to Governor Walz's "Drive for Five" workforce priorities.</p>
+            <div style={{ background: "#F1F5F9", border: "1px solid #CBD5E1", borderRadius: 7, padding: "8px 14px", fontSize: 11, color: "#475569", marginBottom: 18 }}>
               ⚠ Requires linking MDE/Minnesota State DE completion records by subject area → DEED labor market data by occupation and region. MNP20's IWA partnership creates the cross-agency access pathway.
             </div>
 
@@ -1240,8 +1244,8 @@ export default function MNDualEnrollmentDashboard() {
         {/* ── PSEO VS CONCURRENT ── */}
         {activeTab === "pseo" && (
           <div>
-            <h2 style={{ fontSize: 17, fontWeight: 400, color: C.header, margin: "0 0 4px" }}>PSEO vs. Concurrent Enrollment: Equity Comparison</h2>
-            <p style={{ fontSize: 12, color: C.muted, margin: "0 0 4px" }}>Minnesota has two DE models: PSEO (student goes to campus) and concurrent enrollment (college instructor comes to the HS). They serve different populations with different outcomes. No side-by-side equity analysis currently exists in public Minnesota reporting.</p>
+            <h2 style={{ fontSize: 20, fontWeight: 400, color: C.header, margin: "0 0 6px" }}>PSEO vs. Concurrent Enrollment: Equity Comparison</h2>
+            <p style={{ fontSize: 14, color: C.muted, margin: "0 0 4px" }}>Minnesota has two DE models: PSEO (student goes to campus) and concurrent enrollment (college instructor comes to the HS). They serve different populations with different outcomes. No side-by-side equity analysis currently exists in public Minnesota reporting.</p>
             <div style={{ background: `${C.purple}15`, border: `1px solid ${C.purple}40`, borderRadius: 7, padding: "8px 14px", fontSize: 11, color: `${C.purple}dd`, marginBottom: 18 }}>
               ⚠ PSEO data (OHE) and concurrent enrollment data (Minnesota State / MnCEP) are not currently joined. This comparison requires a data linkage that does not yet exist in standardized form.
             </div>
@@ -1336,13 +1340,13 @@ export default function MNDualEnrollmentDashboard() {
         {/* ── DATA ARCHITECTURE ── */}
         {activeTab === "integration" && (
           <div>
-            <h2 style={{ fontSize: 17, fontWeight: 400, color: C.header, margin: "0 0 4px" }}>Minnesota P-20W Data Integration Architecture</h2>
-            <p style={{ fontSize: 12, color: C.muted, margin: "0 0 18px" }}>How a connected data integration layer links existing Minnesota systems — and closes the gaps identified across all 10 dashboard modules.</p>
+            <h2 style={{ fontSize: 20, fontWeight: 400, color: C.header, margin: "0 0 6px" }}>Minnesota P-20W Data Integration Architecture</h2>
+            <p style={{ fontSize: 14, color: C.muted, margin: "0 0 18px" }}>How a connected data integration layer links existing Minnesota systems — and closes the gaps identified across all 10 dashboard modules.</p>
 
             <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr 1fr", gap: 16, marginBottom: 18 }}>
               {/* Source systems */}
               <div>
-                <div style={{ fontSize: 10, color: C.red, textTransform: "uppercase", letterSpacing: "0.08em", fontWeight: 700, marginBottom: 10 }}>◉ Existing Systems — Siloed</div>
+                <div style={{ fontSize: 12, color: C.red, textTransform: "uppercase", letterSpacing: "0.08em", fontWeight: 700, marginBottom: 10 }}>◉ Existing Systems — Siloed</div>
                 {[
                   { name: "MDE / SIS", desc: "K-12 enrollment, demographics, FRL" },
                   { name: "Minnesota State", desc: "Concurrent enrollment records" },
@@ -1353,37 +1357,37 @@ export default function MNDualEnrollmentDashboard() {
                   { name: "MDE Staffing", desc: "Counselor ratios by district" },
                   { name: "Inst. Transcripts", desc: "Credit acceptance at receiving colleges" },
                 ].map((s, i) => (
-                  <div key={i} style={{ background: "#111827", border: `1px solid #374151`, borderRadius: 6, padding: "8px 12px", marginBottom: 6 }}>
-                    <div style={{ fontSize: 11, color: "#9CA3AF", fontWeight: 600 }}>{s.name}</div>
-                    <div style={{ fontSize: 9, color: "#4B5563" }}>{s.desc}</div>
+                  <div key={i} style={{ background: `${C.blue}08`, border: `1px solid ${C.cardBorder}`, borderRadius: 6, padding: "8px 12px", marginBottom: 6 }}>
+                    <div style={{ fontSize: 13, color: C.text, fontWeight: 600 }}>{s.name}</div>
+                    <div style={{ fontSize: 11, color: C.muted }}>{s.desc}</div>
                   </div>
                 ))}
               </div>
 
               {/* Integration hub */}
-              <div style={{ background: "linear-gradient(135deg, #0D2144, #1E3A5F)", border: `1px solid ${C.blue}`, borderRadius: 12, padding: "20px 24px" }}>
-                <div style={{ fontSize: 11, color: C.accent, textTransform: "uppercase", letterSpacing: "0.08em", fontWeight: 700, marginBottom: 12, textAlign: "center" }}>⬡ P-20W Integration Hub — LearningMate</div>
+              <div style={{ background: C.card, border: `2px solid ${C.blue}`, borderRadius: 12, padding: "20px 24px" }}>
+                <div style={{ fontSize: 13, color: C.accent, textTransform: "uppercase", letterSpacing: "0.08em", fontWeight: 700, marginBottom: 12, textAlign: "center" }}>⬡ P-20W Integration Hub — LearningMate</div>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 14 }}>
                   {["Secure student ID crosswalk", "Automated ETL pipelines", "Demographic normalization", "Privacy-preserving linkage", "FERPA-compliant access tiers", "Real-time & batch processing", "Cross-state benchmarking API", "Legislative report automation"].map((f, i) => (
-                    <div key={i} style={{ fontSize: 10, color: "#93C5FD", padding: "6px 8px", background: `${C.blue}12`, borderRadius: 4 }}>✓ {f}</div>
+                    <div key={i} style={{ fontSize: 12, color: C.blue, padding: "6px 8px", background: "#F0F7FF", border: "1px solid #E0EFFF", borderRadius: 4 }}>✓ {f}</div>
                   ))}
                 </div>
                 <div style={{ borderTop: `1px solid ${C.faint}`, paddingTop: 12, marginTop: 4 }}>
-                  <div style={{ fontSize: 10, color: C.muted, marginBottom: 8, textAlign: "center" }}>Enables these 9 Dashboard Modules</div>
+                  <div style={{ fontSize: 12, color: C.muted, marginBottom: 8, textAlign: "center" }}>Enables these 9 Dashboard Modules</div>
                   <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
                     {["Equity Gaps", "Pipeline", "Geographic", "Geographic DE", "Attainment Goal", "Early Warning", "Cost & Savings", "Employer Signals", "PSEO vs. Concurrent"].map((m, i) => (
-                      <span key={i} style={{ fontSize: 9, background: `${C.green}18`, color: C.green, borderRadius: 3, padding: "3px 7px" }}>{m}</span>
+                      <span key={i} style={{ fontSize: 11, background: `${C.green}18`, color: C.green, borderRadius: 3, padding: "3px 7px" }}>{m}</span>
                     ))}
                   </div>
                 </div>
-                <div style={{ marginTop: 14, fontSize: 10, color: C.blue, fontStyle: "italic", textAlign: "center" }}>
+                <div style={{ marginTop: 14, fontSize: 12, color: C.blue, fontStyle: "italic", textAlign: "center" }}>
                   Cross-state SLDS experience: NM, OH, OR, TN, VA, WA cohort states
                 </div>
               </div>
 
               {/* Outputs */}
               <div>
-                <div style={{ fontSize: 10, color: C.green, textTransform: "uppercase", letterSpacing: "0.08em", fontWeight: 700, marginBottom: 10 }}>◉ New Capabilities Unlocked</div>
+                <div style={{ fontSize: 12, color: C.green, textTransform: "uppercase", letterSpacing: "0.08em", fontWeight: 700, marginBottom: 10 }}>◉ New Capabilities Unlocked</div>
                 {[
                   { name: "This Dashboard", desc: "Real-time equity & pipeline reporting", color: C.green },
                   { name: "IDUC Metrics", desc: "Strategic plan metric tracking", color: C.blue },
@@ -1395,8 +1399,8 @@ export default function MNDualEnrollmentDashboard() {
                   { name: "Attainment Tracker", desc: "Progress toward new state goal", color: C.lime },
                 ].map((s, i) => (
                   <div key={i} style={{ background: `${s.color}10`, border: `1px solid ${s.color}35`, borderLeft: `3px solid ${s.color}`, borderRadius: 6, padding: "8px 12px", marginBottom: 6 }}>
-                    <div style={{ fontSize: 11, color: s.color, fontWeight: 600 }}>{s.name}</div>
-                    <div style={{ fontSize: 9, color: "#4B5563" }}>{s.desc}</div>
+                    <div style={{ fontSize: 13, color: s.color, fontWeight: 600 }}>{s.name}</div>
+                    <div style={{ fontSize: 11, color: "#4B5563" }}>{s.desc}</div>
                   </div>
                 ))}
               </div>
@@ -1413,9 +1417,9 @@ export default function MNDualEnrollmentDashboard() {
                   { phase: "Q4 2026", label: "Launch", desc: "Live dashboard, legislative report support, CHSA cohort benchmarking, counselor alert system rollout", color: C.amber },
                 ].map((p, i) => (
                   <div key={i} style={{ background: `${p.color}12`, border: `1px solid ${p.color}35`, borderTop: `3px solid ${p.color}`, borderRadius: 8, padding: "14px 16px" }}>
-                    <div style={{ fontSize: 9, color: p.color, textTransform: "uppercase", letterSpacing: "0.08em", fontWeight: 700 }}>{p.phase}</div>
-                    <div style={{ fontSize: 13, color: C.header, fontWeight: 700, margin: "4px 0" }}>{p.label}</div>
-                    <div style={{ fontSize: 10, color: C.muted, lineHeight: 1.5 }}>{p.desc}</div>
+                    <div style={{ fontSize: 11, color: p.color, textTransform: "uppercase", letterSpacing: "0.08em", fontWeight: 700 }}>{p.phase}</div>
+                    <div style={{ fontSize: 15, color: C.header, fontWeight: 700, margin: "4px 0" }}>{p.label}</div>
+                    <div style={{ fontSize: 12, color: C.muted, lineHeight: 1.5 }}>{p.desc}</div>
                   </div>
                 ))}
               </div>
@@ -1426,9 +1430,9 @@ export default function MNDualEnrollmentDashboard() {
       </div>
 
       {/* FOOTER */}
-      <div style={{ padding: "12px 24px", borderTop: `1px solid ${C.faint}`, display: "flex", justifyContent: "space-between", background: "#0A1628", fontSize: 10, color: "#334155" }}>
+      <div style={{ padding: "12px 24px", borderTop: `1px solid ${C.cardBorder}`, display: "flex", justifyContent: "space-between", background: C.card, fontSize: 10, color: C.muted }}>
         <div>Data sources: MNP20 2025 Annual Report, OHE, SLEDS, ECLDS, DEED, National DE Research · Modeled data for illustrative purposes</div>
-        <div style={{ color: "#1E4A8C" }}>LearningMate · Ed Tech Data Integration · P-20W Systems</div>
+        <div style={{ color: C.blue }}>LearningMate · Ed Tech Data Integration · P-20W Systems</div>
       </div>
     </div>
   );
